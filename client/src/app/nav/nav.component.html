@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-
     <a class="navbar-brand" >Dating App</a>
+
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -12,7 +12,7 @@
           <a class="nav-link" href="#"> Matches </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"> List </a>
+          <a class="nav-link" href="#"> Lists </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"> Messages </a>
@@ -29,18 +29,18 @@
         </div>
       </div>
 
-      <form *ngIf="!loggedIn"  #loginForm ="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()" autocomplete="off">
+      <form *ngIf="!loggedIn"  #loginForm ="ngForm" class="form-inline my-2 ml-auto my-lg-0" (ngSubmit)="login()" autocomplete="off">
         <input name="userName"
             [(ngModel)]="model.username"
-            class="form-control mr-sm-2"
+            class="form-control ml-auto mr-sm-2"
             type="text" placeholder="UserName" aria-label="Username">
 
         <input name="password"
             [(ngModel)]="model.password"
-            class="form-control mr-sm-2"
+            class="form-control ml-auto mr-sm-2"
             type="password" placeholder="Password" aria-label="Password">
 
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        <button class="btn btn-outline-success ml-auto my-2 my-sm-0" type="submit">Login</button>
       </form>
     </div>
   </div>
