@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace API.Controllers
             return await _context.Users.ToListAsync();
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUserAsync(int id)
         {
@@ -32,7 +34,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetUserAsync(AppUser user)
+        public ActionResult AddUserAsync(AppUser user)
         {
             return Ok(_context.Users.Add(user));
         }
