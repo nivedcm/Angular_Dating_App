@@ -22,10 +22,21 @@ export class AccountService {
         const user = response;
         if(user){
           localStorage.setItem('user',JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+      })
+    )
+  }
+
+  register(model: any){
+    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+      map((response : User) => {
+        const user = response;
+        if(user){
           localStorage.setItem('user',JSON.stringify(user));
           this.currentUserSource.next(user);
-
         }
+        return user;
       })
     )
   }
@@ -33,6 +44,11 @@ export class AccountService {
   setCurrentUser(user: User){
       this.currentUserSource.next(user);
   }
+
+  // getAllUsers() {
+  //   var url = "https://localhost:44364/api/users";
+  //   this.http.get(url).subscribe();
+  // }
 
   logout(){
     localStorage.removeItem('user');
