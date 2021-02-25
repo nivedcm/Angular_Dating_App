@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
     ListsComponent,
     MessagesComponent,
     MemberListComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +44,9 @@ import { ToastrModule } from 'ngx-toastr';
   exports:[
     RegisterComponent
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
