@@ -24,6 +24,10 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { NgxSpinnerComponent, NgxSpinnerModule } from "ngx-spinner";
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
     NotFoundComponent,
     MemberCardComponent,
     MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -52,14 +57,20 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
       positionClass: 'toast-bottom-right'
     }),
     TabsModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgxSpinnerModule,
+    FileUploadModule
+
   ],
   exports:[
-    RegisterComponent
+    RegisterComponent,
+    NgxSpinnerComponent,
+    FileUploadModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

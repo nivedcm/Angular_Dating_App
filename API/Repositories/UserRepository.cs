@@ -41,7 +41,7 @@ namespace API.Repositories
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _context.Users.Include(p => p.Photos).ToListAsync();
+            return await _context.Users.Include(p => p.Photos.Where(p=>p.Id==30)).Skip(20).Take(6).ToListAsync();
         }
 
         public void Update(AppUser user)

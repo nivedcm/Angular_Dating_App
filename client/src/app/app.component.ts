@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'The Dating App';
   users: any;
 
-  constructor(private accountService : AccountService){
+  constructor(private accountService : AccountService, private spinner: NgxSpinnerService){
   }
 
   ngOnInit() {
