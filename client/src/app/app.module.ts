@@ -2,7 +2,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
@@ -28,6 +28,9 @@ import { NgxSpinnerComponent, NgxSpinnerModule } from "ngx-spinner";
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DateInputComponent } from './_forms/date-input/date-input.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     NotFoundComponent,
     MemberCardComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    TextInputComponent,
+    DateInputComponent
   ],
   imports: [
     BrowserModule,
@@ -59,13 +64,15 @@ import { FileUploadModule } from 'ng2-file-upload';
     TabsModule.forRoot(),
     NgxGalleryModule,
     NgxSpinnerModule,
-    FileUploadModule
-
+    FileUploadModule,
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot()
   ],
   exports:[
     RegisterComponent,
     NgxSpinnerComponent,
-    FileUploadModule
+    FileUploadModule,
+    BsDatepickerModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

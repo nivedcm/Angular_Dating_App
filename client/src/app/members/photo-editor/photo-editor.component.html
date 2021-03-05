@@ -8,7 +8,12 @@
       [ngClass]='photo.isMain? "btn-success active" : "btn-outline-success"'
       class="btn btn-sm  m-1"
       >Main</button>
-      <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+
+      <button
+      [disabled]="photo.isMain"
+      (click)="deletePhoto(photo.id)"
+      class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+
     </div>
   </div>
 </div>
@@ -86,15 +91,15 @@
                   <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
               </div>
           </div>
-          <button type="button" class="btn btn-success btn-s"
+          <button type="button" class="btn btn-success btn-s m-1"
                   (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
               <span class="glyphicon glyphicon-upload"></span> Upload all
           </button>
-          <button type="button" class="btn btn-warning btn-s"
+          <button type="button" class="btn btn-warning btn-s m-1"
                   (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
               <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
           </button>
-          <button type="button" class="btn btn-danger btn-s"
+          <button type="button" class="btn btn-danger btn-s m-1"
                   (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
               <span class="glyphicon glyphicon-trash"></span> Remove all
           </button>

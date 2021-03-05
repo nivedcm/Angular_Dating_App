@@ -1,0 +1,9 @@
+<div class="form-group">
+  <input type={{type}}
+   class="form-control"
+   [formControl]="ngControl.control"
+   [class.is-invalid]='ngControl.invalid && ngControl.touched'
+   placeholder={{label}}>
+  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">Please enter a {{label}}</div>
+  <div *ngIf="ngControl.control.errors?.isMatching" class="invalid-feedback">The passwords do not match</div>
+</div>
