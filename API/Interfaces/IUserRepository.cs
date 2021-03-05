@@ -1,5 +1,6 @@
 ﻿using API.Data.Entities;
 using API.DTOs;
+using API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace API.Interfaces
         void Update(AppUser user);
         Task<bool> SaveAllAsync();
 
-        Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
         Task<MemberDto> GetMemberAsync(string username);
     }
 }

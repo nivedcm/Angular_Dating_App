@@ -17,7 +17,7 @@ namespace API.Helpers
 
             CreateMap<Photo, PhotoDto>().ReverseMap();
             CreateMap<MemberUpdateDto, AppUser>().ReverseMap();
-
+            CreateMap<RegisterDto, AppUser>().ReverseMap();
         }
     }
 }

@@ -31,6 +31,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -66,13 +67,13 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     NgxSpinnerModule,
     FileUploadModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot()
+    PaginationModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ],
   exports:[
     RegisterComponent,
     NgxSpinnerComponent,
-    FileUploadModule,
-    BsDatepickerModule
+    FileUploadModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
