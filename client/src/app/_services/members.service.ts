@@ -18,6 +18,16 @@ export class MembersService {
   constructor(private http:HttpClient) {
   }
 
+  getMembers(userParams: UserParams) {
+
+    let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
+    params =  params.append('minAge', userParams.minAge.toString());
+    params =  params.append('maxAge', userParams.maxAge.toString());
+    params =  params.append('gender', userParams.gender);
+
+    return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params);
+  }
+
   private getPaginationHeaders(pageNumber: number, pageZize: number){
     let params = new HttpParams();
       params = params.append('pageNumber', pageNumber.toString());
@@ -26,26 +36,16 @@ export class MembersService {
       return params;
   }
 
-  getMembers(userParams: UserParams) {
-    // if(this.members.length>0) return of (this.members);
-    let params = this.getPaginationHeaders(userParams.pageNumber,userParams.pageSize);
-
-    params =  params.append('minAge',userParams.minAge.toString());
-    params =  params.append('maxAge',userParams.maxAge.toString());
-    params =  params.append('gender',userParams.gender);
-
-    return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params);
-  }
-
   private getPaginatedResult<T>(url, params) {
     const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
     return this.http.get<T>(url, { observe: 'response', params }).pipe(
       map(response => {
+
         paginatedResult.result = response.body;
         if (response.headers.get('Pagination') !== null) {
           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
         }
-        return this.paginatedResult;
+        return paginatedResult;
       })
     );
   }
