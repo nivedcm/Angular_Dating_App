@@ -23,30 +23,29 @@ export class ErrorInterceptor implements HttpInterceptor {
               case 400:
                 if(error.error.errors) {
                   const modelStateErrors = [];
-                  for(const key in error.error.errors)
-                  {
+                  for(const key in error.error.errors) {
                     if(error.error.errors[key]) {
                       modelStateErrors.push( error.error.errors[key])
                     }
                   }
                   throw modelStateErrors.flat();
                 }
-                else{
+                else if(typeof(error.error ==='object')) {
                   this.toastr.error(error.statusText, error.status)
                 }
+                else {
+                  this.toastr.error(error.error, error.status)
+                }
                 break;
-
               case 401:
-                //this.toastr.error(error.statusText, error.status)
+                this.toastr.error(error.statusText, error.status)
                 break;
-
               case 404:
                 this.router.navigateByUrl('/not-found')
                 break;
               case 500:
                 const navigationExtras: NavigationExtras = {state: {error: error.error}}
                 break;
-
               default: break;
             }
           }
