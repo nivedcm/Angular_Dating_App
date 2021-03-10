@@ -1,5 +1,6 @@
 ﻿using API.Data.Entities;
 using API.DTOs;
+using API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace API.Interfaces
     {
         Task<UserLike> GetUserLike(int sourceUserId, int likedUserId);
         Task<AppUser> GetUserWithLikes(int UserId);
-        Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int UserId);
+        Task<PagedList<LikeDto>> GetUserLikes(LikesParams likesParams);
+        Task<bool> SaveAllAsync();
     }
 }
