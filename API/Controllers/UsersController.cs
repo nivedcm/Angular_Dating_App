@@ -31,6 +31,7 @@ namespace API.Controllers
             _photoService = photoService;
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
@@ -62,7 +63,6 @@ namespace API.Controllers
             _userRepository.Update(user);
 
             if (await _userRepository.SaveAllAsync()) return NoContent();
-
             return BadRequest("User update failed");
         }
 

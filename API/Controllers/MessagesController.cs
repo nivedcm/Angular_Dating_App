@@ -36,7 +36,7 @@ namespace API.Controllers
             if (username == createMessageDto.RecipiantUserName) return BadRequest("You cant send yourself messages");
 
             var sender = await _userRepository.GetUserByUsernameAsync(User.GetUserName());
-            var recipient = await _userRepository.GetUserByUsernameAsync(User.GetUserName());
+            var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipiantUserName);
 
             if (recipient == null) return NotFound("Couldnt find this user");
 
@@ -71,6 +71,19 @@ namespace API.Controllers
         {
             var currentUsername = User.GetUserName();
             return Ok(await _messageRepository.GetMessageThread(currentUsername, username));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteMessage(int id)
+        {
+            var currentUsername = User.GetUserName();
+            var message = await _messageRepository.GetMessage(id);
+            if (message.Sender.UserName != currentUsername && message.Recipiant.UserName != currentUsername) return Unauthorized();
+            if (message.Sender.UserName == currentUsername ) message.SenderDeleted = true;
+            if (message.Recipiant.UserName == currentUsername) message.RecipiantDeleted = true;
+            if (message.SenderDeleted && message.RecipiantDeleted) _messageRepository.DeleteMessage(message);
+            if (await _userRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
+            return BadRequest("Failed to delete message");
         }
     }
 }
