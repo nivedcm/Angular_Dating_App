@@ -31,7 +31,6 @@ namespace API.Controllers
             _photoService = photoService;
         }
 
-        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
@@ -53,7 +52,6 @@ namespace API.Controllers
             return Ok(user);
         }
 
-        [Authorize]
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
@@ -82,7 +80,7 @@ namespace API.Controllers
             user.Photos.Add(photo);
             if (await _userRepository.SaveAllAsync())
             {
-                return CreatedAtRoute("GetUserByUserNameAsync", new { username =user.UserName }, _mapper.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUserByUserNameAsync", new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
             }
             return BadRequest("Problem adding photo");
         }

@@ -32,14 +32,10 @@ namespace API.Controllers
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
         {
             var username = User.GetUserName();
-
             if (username == createMessageDto.RecipiantUserName) return BadRequest("You cant send yourself messages");
-
             var sender = await _userRepository.GetUserByUsernameAsync(User.GetUserName());
             var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipiantUserName);
-
             if (recipient == null) return NotFound("Couldnt find this user");
-
             var message = new Message
             {
                 Sender = sender,
@@ -48,11 +44,8 @@ namespace API.Controllers
                 RecipiantUsername = recipient.UserName,
                 Content = createMessageDto.Content
             };
-
             _messageRepository.AddMessage(message);
-
             if (await _userRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
-
             return BadRequest("Failed to send message");
         }
 

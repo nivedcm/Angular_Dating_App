@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +29,8 @@ namespace API
 
             services.AddCors();
 
+            services.AddSignalR();
+
             services.AddIdentityServices(_config);
 
             services.AddSwaggerGen(c =>
@@ -52,7 +55,11 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(_config["ClientUrl"]));
+            app.UseCors(policy => policy
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .AllowAnyMethod()
+            .WithOrigins(_config["ClientUrl"]));
             
             app.UseAuthentication();
 
@@ -61,6 +68,8 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
             });
         }
     }

@@ -14,7 +14,6 @@ export function getPaginatedResult<T>(url, params, http: HttpClient) {
       return paginatedResult;
     })
   );
-
 }
 
 export function  getPaginationHeaders(pageNumber: number, pageZize: number){

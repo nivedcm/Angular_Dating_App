@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace API.Extensions
 {
@@ -17,11 +18,11 @@ namespace API.Extensions
             {
                 opt.Password.RequireNonAlphanumeric = false;
             })
-            .AddRoles<AppRole>()
-            .AddRoleManager<RoleManager<AppRole>>()
-            .AddSignInManager<SignInManager<AppUser>>()
-            .AddRoleValidator<RoleValidator<AppRole>>()
-            .AddEntityFrameworkStores<DataContext>();
+                .AddRoles<AppRole>()
+                .AddRoleManager<RoleManager<AppRole>>()
+                .AddSignInManager<SignInManager<AppUser>>()
+                .AddRoleValidator<RoleValidator<AppRole>>()
+                .AddEntityFrameworkStores<DataContext>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>
@@ -32,6 +33,19 @@ namespace API.Extensions
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"])),
                      ValidateIssuer = false,
                      ValidateAudience = false
+                 };
+                 options.Events = new JwtBearerEvents
+                 {
+                     OnMessageReceived = context =>
+                     {
+                         var accessToken = context.Request.Query["access_token"];
+                         var path = context.HttpContext.Request.Path;
+                         if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                         {
+                             context.Token = accessToken;
+                         }
+                         return Task.CompletedTask;
+                     }
                  };
              });
 
