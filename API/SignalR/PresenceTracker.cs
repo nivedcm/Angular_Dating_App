@@ -50,5 +50,15 @@ namespace API.SignalR
             }
             return Task.FromResult(onlineUsers);
         }
+        public Task<List<string>> GetConnectionsDorUser(string username)
+        {
+            //since the same user can have multiple connectionIds
+            List<string> connectionIds = new List<string>();
+            lock (OnlineUsers)
+            {
+                connectionIds = OnlineUsers.GetValueOrDefault(username);
+            }
+            return Task.FromResult(connectionIds);
+        }
     }
 }
