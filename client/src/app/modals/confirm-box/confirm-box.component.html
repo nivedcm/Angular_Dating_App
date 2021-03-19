@@ -1,13 +1,10 @@
-<!-- <pre class="card card-block card-header">Confirmation</pre> -->
-<ng-template #template>
-  <div class="modal-header">
-    <p class="modal-title pull-left">{{title}}</p>
-  </div>
-  <div class="modal-body text-center">
-    <p>{{message}}</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
-  </div>
-</ng-template>
+<div class="modal-header">
+  <p class="modal-title pull-left">{{title}}</p>
+</div>
+<div class="modal-body text-center">
+  <p>{{message}}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+  <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+</div>
