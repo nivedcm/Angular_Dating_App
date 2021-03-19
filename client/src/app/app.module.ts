@@ -41,6 +41,7 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ConfirmBoxComponent } from './modals/confirm-box/confirm-box.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HasRoleDirective,
     UserManagementComponent,
     PhotoManagementComponent,
-    RolesModalComponent
+    RolesModalComponent,
+    ConfirmBoxComponent
   ],
   imports: [
     BrowserModule,

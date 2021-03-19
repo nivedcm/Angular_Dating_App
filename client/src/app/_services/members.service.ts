@@ -42,7 +42,7 @@ export class MembersService {
 
   getMembers(userParams: UserParams) {
     var response = this.memberCache.get(Object.values(userParams).join("_"));
-    if(response){
+    if(response) {
       return of(response);
     }
 

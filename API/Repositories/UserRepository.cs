@@ -45,6 +45,11 @@ namespace API.Repositories
             return await _context.Users.Include(p => p.Photos.Where(p=>p.Id==30)).Skip(20).Take(6).ToListAsync();
         }
 
+        public async Task<string> GetUserGenderAsync(string username)
+        {
+            return await _context.Users.Where(p => p.UserName == username).Select(x=>x.Gender).FirstOrDefaultAsync();
+        }
+
         public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;

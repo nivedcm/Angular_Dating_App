@@ -33,11 +33,11 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var currentuser = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUserName());
+            var gender = await _unitOfWork.UserRepository.GetUserGenderAsync(User.GetUserName());
 
-            userParams.CurrentUsername = currentuser.UserName;
+            userParams.CurrentUsername = User.GetUserName();
             if (string.IsNullOrEmpty(userParams.Gender))
-                userParams.Gender = currentuser.Gender == "male" ? "female" : "male";
+                userParams.Gender = gender == "male" ? "female" : "male";
 
             var users = await _unitOfWork.UserRepository.GetMembersAsync(userParams);
             Response.AddPaginationHeaders(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
