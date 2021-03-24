@@ -24,7 +24,6 @@ namespace API.Controllers
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-
         }
 
         [HttpPost]

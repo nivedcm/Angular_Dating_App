@@ -64,9 +64,11 @@ namespace API.Controllers
         [HttpGet("photos-to-moderate")]
         public async Task<ActionResult> GetPhotosForModeration()
         {
-            var photos = await _unitOfWork.PhotosRepository.GetUnapprovedPhotos().ConfigureAwait(true);
+            var photos = await _unitOfWork.PhotosRepository.GetUnapprovedPhotos();
             return Ok(photos);
         }
+
+
 
         [Authorize(Policy = "ModeratePhotoRole")]
         [HttpPost("approve-photo/{photoId}")]
