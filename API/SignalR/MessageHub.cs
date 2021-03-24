@@ -62,6 +62,7 @@ namespace API.SignalR
 
             var recipient = await _unitOfWork.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipiantUserName);
             if (recipient == null) throw new HubException("User not found");
+            
             var message = new Message
             {
                 Sender = sender,

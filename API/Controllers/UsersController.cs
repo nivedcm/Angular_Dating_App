@@ -1,18 +1,13 @@
-﻿using API.Data;
-using API.Data.Entities;
+﻿using API.Data.Entities;
 using API.DTOs;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -47,7 +42,10 @@ namespace API.Controllers
         [HttpGet("{username}", Name = "GetUserByUserNameAsync")]
         public async Task<ActionResult<MemberDto>> GetUserByUserName(string username)
         {
-            var user = await _unitOfWork.UserRepository.GetMemberAsync(username);
+            var currentUsername = User.GetUserName();
+            var user = await _unitOfWork.UserRepository.GetMemberAsync(username,
+                isCurrentUser: currentUsername == username
+            );
             return Ok(user);
         }
 
