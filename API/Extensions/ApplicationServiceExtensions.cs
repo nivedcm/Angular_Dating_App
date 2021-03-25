@@ -18,9 +18,8 @@ namespace API.Extensions
             services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPhotoService, PhotoService>();
-           
+
             services.AddScoped<LogUserActivity>();
-           
             services.AddScoped<IUnitOfWork, UnitOfWork>();
            
             services.AddSingleton<PresenceTracker>();
@@ -29,14 +28,11 @@ namespace API.Extensions
 
             //services.AddDbContext<DataContext>(options =>
             //{
-            //    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+            //    options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
             //});
-
-
             services.AddDbContext<DataContext>(options =>
             {
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
                 string connStr;
 
                 // Depending on if in development or production, use either Heroku-provided

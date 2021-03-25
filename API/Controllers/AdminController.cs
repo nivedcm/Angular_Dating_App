@@ -21,6 +21,8 @@ namespace API.Controllers
             IPhotoService photoService)
         {
             _userManager = userManager;
+            _unitOfWork = unitOfWork;
+            _photoService = photoService;
         }
 
         [Authorize(Policy = "RequireAdminRole")]
@@ -59,8 +61,8 @@ namespace API.Controllers
             return Ok(await _userManager.GetRolesAsync(user));
         }
 
-
-        [Authorize(Policy = "ModeratePhotoRole")]
+        [AllowAnonymous]
+        //[Authorize(Policy = "ModeratePhotoRole")]
         [HttpGet("photos-to-moderate")]
         public async Task<ActionResult> GetPhotosForModeration()
         {
