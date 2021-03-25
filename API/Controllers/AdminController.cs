@@ -61,16 +61,14 @@ namespace API.Controllers
             return Ok(await _userManager.GetRolesAsync(user));
         }
 
-        [AllowAnonymous]
-        //[Authorize(Policy = "ModeratePhotoRole")]
+        //[AllowAnonymous]
+        [Authorize(Policy = "ModeratePhotoRole")]
         [HttpGet("photos-to-moderate")]
         public async Task<ActionResult> GetPhotosForModeration()
         {
             var photos = await _unitOfWork.PhotosRepository.GetUnapprovedPhotos();
             return Ok(photos);
         }
-
-
 
         [Authorize(Policy = "ModeratePhotoRole")]
         [HttpPost("approve-photo/{photoId}")]

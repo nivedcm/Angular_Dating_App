@@ -71,7 +71,7 @@ namespace API.Controllers
             {
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId,
-                IsMain = user.Photos.Count == 0
+                // = user.Photos.Count == 0  
             };
 
             user.Photos.Add(photo);
@@ -91,6 +91,7 @@ namespace API.Controllers
             if (photo.IsMain) return BadRequest("This is already your main photo");
 
             var currentMain = user.Photos.FirstOrDefault(x => x.IsMain);
+           
             if (currentMain != null) currentMain.IsMain = false;
             photo.IsMain = true;
 

@@ -49,11 +49,9 @@ export class PresenceService {
     })
 
     this.hubConnection.on('NewMessageReceived', (response) =>{
-      debugger;
       this.toastr.info('You have a new message from ' + response.knownAs)
       .onTap.pipe(take(1))
       .subscribe(() => this.router.navigateByUrl('/members/'+ response.username +'?tab=3'))
-
     })
   }
 

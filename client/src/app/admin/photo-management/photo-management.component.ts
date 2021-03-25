@@ -10,12 +10,13 @@ import { AdminService } from 'src/app/_services/admin.service';
 export class PhotoManagementComponent implements OnInit {
   photos: Photo[];
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService) {
+    this.getPhotosForApproval();
+  }
 
   ngOnInit(): void {}
 
   getPhotosForApproval() {
-    debugger;
     this.adminService.getPhotosForApproval().subscribe((photos) => {
       this.photos = photos;
     });
