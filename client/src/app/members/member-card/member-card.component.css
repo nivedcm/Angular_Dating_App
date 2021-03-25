@@ -26,6 +26,10 @@
   opacity:0;
 }
 
+.rounded-button{
+  border-radius: 5px !important;
+}
+
 .card-img-wrapper:hover .member-icons{
   bottom: 0;
   opacity: 1;
@@ -40,6 +44,6 @@
   100% {opacity: 0.4;}
 }
 .is-online {
-  animation: fa-blink 2.5s linear infinite;
-  color: #98FB98
+  animation: fa-blink 1s linear infinite;
+  color: rgb(43, 139, 43)
 }
