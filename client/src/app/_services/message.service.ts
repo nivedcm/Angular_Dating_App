@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { Message } from '../_models/message';
 import { Group } from '../_models/messageGroup';
 import { User } from '../_models/user';
+import { BusyService } from './busy.service';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 
 @Injectable({
@@ -19,9 +20,10 @@ export class MessageService {
   private messageThreadSource = new BehaviorSubject<Message[]>([]);
   messagethread$ = this.messageThreadSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private busyService: BusyService) { }
 
   createHubConnection(user: User, otherUserName: string) {
+    this.busyService.busy();
     this.hubConnection = new HubConnectionBuilder()
         .withUrl(this.hubUrl + 'message?user=' + otherUserName, {
           accessTokenFactory: () => user.token
@@ -29,7 +31,7 @@ export class MessageService {
         .withAutomaticReconnect()
         .build()
 
-    this.hubConnection.start().catch(er => console.log(er));
+    this.hubConnection.start().catch(er => console.log(er)).finally(() => this.busyService.idle());
 
     this.hubConnection.on('ReceiveMessageThread', messages =>{
       this.messageThreadSource.next(messages);
@@ -40,8 +42,8 @@ export class MessageService {
         this.messageThreadSource.next([...messages, message])
       });
     });
-    
-    this.hubConnection.on('UpdatedGroup', (group: Group) => {      
+
+    this.hubConnection.on('UpdatedGroup', (group: Group) => {
       if(group.connections.some(x => x.username == otherUserName)) {
         this.messagethread$.pipe(take(1)).subscribe(messages => {
           messages.forEach(message => {
@@ -50,13 +52,14 @@ export class MessageService {
             }
           })
           this.messageThreadSource.next([...messages]);
-        });      
+        });
       }
     });
   }
 
   stopHubConnection() {
     if(this.hubConnection) {
+      this.messageThreadSource.next([]);
       this.hubConnection.stop();
     }
   }

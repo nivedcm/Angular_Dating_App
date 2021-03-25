@@ -1,12 +1,9 @@
 <div class="card">
-  <div class="card-body">
+  <div class="card-body" #scrollMe style="overflow: scroll; height: 500px;" [scrollTop]='scrollMe.scrollHeight'>
     <div *ngIf="(messageService.messagethread$ | async)?.length === 0">
       No messages yet
     </div>
-    <ul #scrollMe
-        style="overflow: scroll; height: 500px;"
-        [scrollTop]='scrollMe.scrollHeight'
-     *ngIf="(messageService.messagethread$ | async)?.length > 0" class="chat">
+    <ul *ngIf="(messageService.messagethread$ | async)?.length > 0" class="chat">
       <li *ngFor="let message of (messageService.messagethread$ | async)">
         <div>
           <span class="chat-img float-right">
@@ -37,8 +34,8 @@
         <input type="text" class="form-control input-sm" name="messageContent" required [(ngModel)]="messageContent"
           placeholder="Send a private message">
         <div class="input-group-append">
-          <button class="btn btn-primary" [disabled]='!messageForm.valid' type="submit">
-            Send
+          <button class="btn btn-primary" [disabled]='!messageForm.valid || loading' type="submit">
+            <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>  Send
           </button>
         </div>
       </div>
