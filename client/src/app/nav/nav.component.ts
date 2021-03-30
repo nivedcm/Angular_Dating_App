@@ -14,7 +14,8 @@ export class NavComponent implements OnInit {
   model: any={};
   isCollapsed: boolean;
 
-  constructor(public accountService: AccountService, private router: Router,
+  constructor(public accountService: AccountService,
+    private router: Router,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {

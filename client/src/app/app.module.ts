@@ -42,6 +42,8 @@ import { PhotoManagementComponent } from './admin/photo-management/photo-managem
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ConfirmBoxComponent } from './modals/confirm-box/confirm-box.component';
+import { ForgotPasswordComponent } from './register/forgot-password/forgot-password.component';
+import { LoginComponent } from './register/login/login.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { ConfirmBoxComponent } from './modals/confirm-box/confirm-box.component'
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
-    ConfirmBoxComponent
+    ConfirmBoxComponent,
+    ForgotPasswordComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

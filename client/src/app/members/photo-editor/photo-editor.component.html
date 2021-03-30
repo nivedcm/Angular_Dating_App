@@ -1,14 +1,11 @@
 <div class="row">
-  <div class="col-2" *ngFor="let photo of member.photos">
+  <div class="col-lg-2 col-md-6 col-sm-12 text-center" *ngFor="let photo of member.photos">
     <div class="text-center img-text" *ngIf="!photo.isApproved">
       <span class="text-danger">Awaiting approval</span>
     </div>
 
     <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1" [class.not-approved]="!photo.isApproved">
     <div class="text-center m-1">
-
-
-
 
       <button
       [disabled]="photo.isMain || !photo.isApproved"
@@ -26,7 +23,7 @@
   </div>
 </div>
 <div class="row mt-3">
-  <div class="col-md-3">
+  <div class="col-md-6 col-sm-12 col-lg-3">
       <h3>Add Photos</h3>
       <div ng2FileDrop
            [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
@@ -54,9 +51,6 @@
           <tr>
               <th width="50%">Name</th>
               <th>Size</th>
-              <!-- <th>Progress</th>
-              <th>Status</th>
-              <th>Actions</th> -->
           </tr>
           </thead>
           <tbody>
@@ -68,26 +62,6 @@
                       <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
                   </div>
               </td>
-
-              <!-- <td class="text-center">
-                  <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                  <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                  <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-              </td>
-              <td nowrap>
-                  <button type="button" class="btn btn-success btn-xs"
-                          (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                      <span class="glyphicon glyphicon-upload"></span> Upload
-                  </button>
-                  <button type="button" class="btn btn-warning btn-xs"
-                          (click)="item.cancel()" [disabled]="!item.isUploading">
-                      <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                  </button>
-                  <button type="button" class="btn btn-danger btn-xs"
-                          (click)="item.remove()">
-                      <span class="glyphicon glyphicon-trash"></span> Remove
-                  </button>
-              </td> -->
           </tr>
           </tbody>
       </table>
