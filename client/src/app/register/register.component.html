@@ -1,4 +1,4 @@
-<form [formGroup]='registerForm' (ngSubmit)="registerForm.valid &&register()" autocomplete="off">
+<form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
   <h2 class="text-center text-info">Sign up</h2>
   <hr>
 
@@ -18,6 +18,9 @@
   <app-date-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Date Of Birth"'> </app-date-input>
   <app-text-input [formControl]='registerForm.controls["city"]' [label]='"City"'> </app-text-input>
   <app-text-input [formControl]='registerForm.controls["country"]' [label]='"Country"'> </app-text-input>
+
+  <app-text-input [formControl]="registerForm.controls['email']" [label]='"Email"' [type]='"email"'></app-text-input>
+  <!-- <app-text-input [formControl]="registerForm.controls['confirmEmail']" [label]='"Confirm Email"' [type]='"email"'></app-text-input> -->
 
   <app-text-input [formControl]='registerForm.controls["password"]' [label]='"Password"' [type]='"password"'> </app-text-input>
   <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]='"Confirm password"' [type]='"password"'> </app-text-input>

@@ -6,4 +6,7 @@
    placeholder={{label}}>
   <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">Please enter a {{label}}</div>
   <div *ngIf="ngControl.control.errors?.isMatching" class="invalid-feedback">The passwords do not match</div>
+
+  <div *ngIf="ngControl.control.errors?.pattern" class="invalid-feedback">Please provide a valid email address</div>
+  <!-- <div *ngIf="ngControl.control.errors?.emailMatch" class="invalid-feedback">Emails do not match</div> -->
 </div>

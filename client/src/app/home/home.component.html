@@ -1,18 +1,30 @@
 <div class="container mt-5">
 
-  <div style ='text-align: center;' *ngIf="!registerMode">
+  <div style ='text-align: center;' *ngIf="!formMode">
     <h1>Find your Match</h1>
     <p class="lead"> Come on in to view your matches... Sign up Today!</p>
 
-    <div class="text-align:center">
-      <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
-      <button class="btn btn-info btn-lg mr-2">Learn more</button>
+    <div class="row text-center">
+      <div class="col-sm-12">
+        <button (click)="loginToggle()" class="btn btn-success btn-lg mr-2">Login</button>
+      </div>
+      <div class="col-sm-12 mt-2">
+        <button (click)="registerToggle()" class="btn btn-danger btn-lg mr-2">Register</button>
+      </div>
+     </div>
+  </div>
+
+  <div *ngIf="loginMode && !registerMode" class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <app-login (cancelLogin)="cancelLoginMode($event)"></app-login>
+        </div>
     </div>
   </div>
 
-  <div class="container" *ngIf="registerMode">
+  <div class="container" *ngIf="registerMode && !loginMode">
     <div class="row justify-content-center">
-      <div class="col-4">
+      <div class="col-lg-4 col-md-6 col-sm-12">
         <app-register (cancelRegister)="cancelRegisterMode($event)" ></app-register>
       </div>
     </div>

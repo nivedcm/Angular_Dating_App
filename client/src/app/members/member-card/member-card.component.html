@@ -1,4 +1,5 @@
 <div class="card mb-4">
+  <span (click)="hideProfile()"> </span>
   <div class="card-img-wrapper">
     <img src="{{member.photoUrl || './assets/user.png' }}" alt="{{member.knownAs}}" class="card-img-top">
     <ul class="list-inline member-icons animate text-center">
@@ -28,10 +29,8 @@
       <span [class.is-online]='(presence.onlineUsers$ | async).includes(member.username)'>
         <i class="fa fa-user fa-blink mr-2"></i>
       </span>
-
       {{member.knownAs}}, {{member.age}}
     </h6>
-
     <p class="card-text text-muted text-center">{{member.city}}</p>
   </div>
 </div>
